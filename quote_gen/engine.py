@@ -21,6 +21,9 @@ class Engine(metaclass=Singleton):
             self.data = json.load(fp)
 
     def insert_row(self,record):
+        if self.data is None:
+            raise Exception("Database closed")
+
         id = len(self.data)
         self.data.append(record)
         return id
@@ -32,5 +35,5 @@ class Engine(metaclass=Singleton):
         self.data.pop(record_id)
 
     def commit(self):
-        with open(self.db_path,'w'):
-            json.dump(self.data)
+        with open(self.db_path,'w') as fp:
+            json.dump(self.data,fp)

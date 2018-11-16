@@ -25,9 +25,8 @@ class TestEngine(unittest.TestCase):
         record = {'a':1,'b':2}
         rid  = self.db.insert_row(record)
         self.assertEqual(len(self.db.data),1)
-        self.assertEqual(rid,0)
 
-    # def test_update(self):
+    def test_update(self):
     #     record = {'a': 1, 'b': 2}
     #     rid = self.db.insert_row(record)
         rid = 0
@@ -38,8 +37,7 @@ class TestEngine(unittest.TestCase):
             with self.subTest(msg=key):
                 self.assertEqual(value,record[key])
 
-
-    def test_delete(self):
+    def test_wdelete(self):
         record = {'a': 'vowel', 'b': 'B'}
         row_id = self.db.insert_row(record)
         rows = len(self.db.data)
