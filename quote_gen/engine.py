@@ -1,5 +1,5 @@
 import json
-
+from pathlib import Path
 ENGINE = None
 DB_PATH = 'quotes.txt'
 
@@ -15,7 +15,8 @@ class Singleton(type):
 
 class Engine(metaclass=Singleton):
     def __init__(self):
-        self.db_path = DB_PATH
+        self.db_path = Path(DB_PATH)
+
         with open(self.db_path) as fp:
             self.data = json.load(fp)
 

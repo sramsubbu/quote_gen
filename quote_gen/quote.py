@@ -1,4 +1,4 @@
-from quote_gen.engine import get_engine
+from quote_gen.engine import Engine,DB_PATH
 
 class Record:
     __fields__ = []
@@ -28,7 +28,7 @@ class Record:
 
 class ActiveRecord(Record):
     def __init__(self,**fields):
-        self.engine = get_engine()
+        self.engine = Engine()
         self.id = self.engine.insert_row(self.__record__)
 
     def save(self):
