@@ -32,6 +32,7 @@ class DB:
         self.data[row_id] = row
 
     def query(self, query_conditions):
+        #TODO: implement this method
         return None
 
     def commit(self):
