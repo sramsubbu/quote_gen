@@ -77,25 +77,25 @@ class TestFunction(TestCase):
     def test_generate_rand(self):
         get_rand = RandomQuoteGenerator()
         elems = [ next(get_rand) for i in range(4) ]
-        elems = [i['quote'] for i in elems]
+        elems = [i.quote for i in elems]
         elems = set(elems)
         self.assertEqual(len(elems),4)
 
     def test_generate_rand_persist(self):
         get_rand1 = RandomQuoteGenerator()
-        first = next(get_rand1)['quote']
+        first = next(get_rand1).quote
         get_rand1.close()
 
         get_rand2 = RandomQuoteGenerator()
-        second = next(get_rand2)['quote']
+        second = next(get_rand2).quote
         get_rand2.close()
 
         get_rand3 = RandomQuoteGenerator()
-        third = next(get_rand3)['quote']
+        third = next(get_rand3).quote
         get_rand3.close()
 
         get_rand4 = RandomQuoteGenerator()
-        fourth = next(get_rand4)['quote']
+        fourth = next(get_rand4).quote
         get_rand4.close()
 
 
