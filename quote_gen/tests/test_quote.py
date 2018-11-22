@@ -81,10 +81,33 @@ class TestFunction(TestCase):
         elems = set(elems)
         self.assertEqual(len(elems),4)
 
+    def test_generate_rand_persist(self):
+        get_rand1 = RandomQuoteGenerator()
+        first = next(get_rand1)['quote']
+        get_rand1.close()
+
+        get_rand2 = RandomQuoteGenerator()
+        second = next(get_rand2)['quote']
+        get_rand2.close()
+
+        get_rand3 = RandomQuoteGenerator()
+        third = next(get_rand3)['quote']
+        get_rand3.close()
+
+        get_rand4 = RandomQuoteGenerator()
+        fourth = next(get_rand4)['quote']
+        get_rand4.close()
+
+
+        elems = {first,second,third,fourth}
+        self.assertEqual(len(elems),4)
+
 
     def tearDown(self):
         import os
         os.remove("quotes.txt")
+        if os.path.exists('qpersist'):
+            os.remove('qpersist')
 
 
 
