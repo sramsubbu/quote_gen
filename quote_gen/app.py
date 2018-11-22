@@ -1,7 +1,7 @@
 from .db import DB
 
-from random import randint
-
+from random import randint,shuffle
+import pickle
 
 class Quote:
     __fields__ = ['quote','author','source','source_type']
@@ -25,14 +25,34 @@ class Quote:
         return f'{quote_string}{source}'
 
 
-def get_random_quote():
-    db_obj = DB()
-    records = db_obj.fetch_all()
-    start,stop = 0, len(records)
-    row_id = records[ randint(start,stop) ]
-    record = db_obj.fetch_single(row_id)
-    db_obj.close()
-    return record
+class RandomQuoteGenerator:
+    PATH = 'qpersist'
+
+    def __init__(self):
+        self.obj_path= RandomQuoteGenerator.PATH
+        self.seq = None
+        try:
+            with open(self.obj_path,'rb') as fp:
+                self.seq = pickle.load(fp)
+        except FileNotFoundError:
+            pass
+        self.db = DB()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self.seq:
+            records = self.db.fetch_all()
+            self.seq = records
+            shuffle(self.seq)
+        row_id = self.seq.pop()
+        return self.db.fetch_single(row_id)
+
+    def close(self):
+        with open(self.obj_path,'wb') as fp:
+            pickle.dump(self.seq, fp)
+
 
 
 
