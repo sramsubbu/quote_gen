@@ -42,6 +42,23 @@ class DB:
     def fetch_all(self):
         return list( self.data.keys() )
 
+    def query(self, query_dict):
+        #the query dict can only contain exact matches. they cannot contain ranges
+        # or any other selector objects, since this function does not support
+        # conditional operators other than equality
+        def cmp(x,y):
+            for key,value in x.items():
+                if value != y[key]:
+                    return False
+            return True
+        for item in self.data:
+            if cmp(query_dict,item):
+                return deepcopy(item)
+
+        return {}
+
+
+
     def commit(self):
         with open(self.db_path, 'w') as fp:
             json.dump(self.data, fp, indent=4)
