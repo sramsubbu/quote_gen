@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 DB_PATH = "quotes.txt"
 
@@ -31,9 +32,15 @@ class DB:
     def update_row(self, row_id, row):
         self.data[row_id] = row
 
-    def query(self, query_conditions):
-        #TODO: implement this method
-        return None
+    def fetch_single(self, row_id):
+        row = self.data[row_id]
+        #we need the row to be deepcopied because any changes to the row,
+        # need to be updated via update_row() API only. giving access to the
+        # actual db object might be violating that principle.
+        return deepcopy(row)
+
+    def fetch_all(self):
+        return list( self.data.keys() )
 
     def commit(self):
         with open(self.db_path, 'w') as fp:

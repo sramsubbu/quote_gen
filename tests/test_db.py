@@ -40,9 +40,26 @@ class TestDB(unittest.TestCase):
         obj.delete_row(row_id)
         self.assertEqual(len(obj.data),0)
 
-    def test_query(self):
-        #TODO: Implement this test
-        pass
+    def test_fetch_single(self):
+        obj= DB()
+        row = {'name': 'Ram', 'occupation': "python programming"}
+        row_id = obj.insert_row(row)
+        fr = obj.fetch_single(row_id)
+        for key,value in fr.items():
+            self.assertEqual(value, row[key])
+
+
+    def test_fetch_all(self):
+        obj = DB()
+        row = {'name': 'Ram', 'occupation': 'python'}
+        row2 = {'name': 'Ramin djawadi', 'occupation': 'composer'}
+        r1 = obj.insert_row(row)
+        r2 = obj.insert_row(row2)
+        rows = obj.fetch_all()
+        self.assertEqual(len(rows),2)
+        for i in (r1,r2):
+            self.assertIn(i, rows)
+
 
     def test_commit(self):
         obj = DB()
