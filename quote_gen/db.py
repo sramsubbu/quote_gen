@@ -63,3 +63,8 @@ class DB:
         with open(self.db_path, 'w') as fp:
             json.dump(self.data, fp, indent=4)
 
+    def close(self):
+        self.commit()
+        self.db_path = None
+        self.data = None
+
