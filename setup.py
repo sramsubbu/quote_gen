@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='quote_gen',
-    version='0.2',
+    version='0.2.1',
     packages=['quote_gen',
               'quote_gen.tests'],
     py_modules=['cli'],
