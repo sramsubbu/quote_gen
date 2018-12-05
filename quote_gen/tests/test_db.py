@@ -1,8 +1,8 @@
-
 from quote_gen.db import DB, DB_PATH
 
 from pathlib import Path
 import unittest
+
 
 class TestDB(unittest.TestCase):
     def setUp(self):
@@ -14,40 +14,39 @@ class TestDB(unittest.TestCase):
 
     def test_insert_row(self):
         obj = DB()
-        row = {'name': 'Ram','occupation': "python programming"}
-        self.assertEqual(len(obj.data),0)
+        row = {'name': 'Ram', 'occupation': "python programming"}
+        self.assertEqual(len(obj.data), 0)
         row_id = obj.insert_row(row)
-        self.assertEqual(len(obj.data),1)
+        self.assertEqual(len(obj.data), 1)
         d = obj.data[row_id]
-        for key,value in d.items():
-            self.assertEqual(row[key],value)
+        for key, value in d.items():
+            self.assertEqual(row[key], value)
 
     def test_update_row(self):
-        obj  = DB()
-        row = {'name': 'Ram','occupation': "python programming"}
+        obj = DB()
+        row = {'name': 'Ram', 'occupation': "python programming"}
         row_id = obj.insert_row(row)
-        new_row = {'name':'Ram','occupation': 'web development'}
+        new_row = {'name': 'Ram', 'occupation': 'web development'}
         obj.update_row(row_id, new_row)
         d = obj.data[row_id]
-        for key,value in d.items():
+        for key, value in d.items():
             self.assertEqual(new_row[key], value)
 
     def test_delete_row(self):
         obj = DB()
         row = {'name': 'Ram', 'occupation': "python programming"}
         row_id = obj.insert_row(row)
-        self.assertEqual(len(obj.data),1)
+        self.assertEqual(len(obj.data), 1)
         obj.delete_row(row_id)
-        self.assertEqual(len(obj.data),0)
+        self.assertEqual(len(obj.data), 0)
 
     def test_fetch_single(self):
-        obj= DB()
+        obj = DB()
         row = {'name': 'Ram', 'occupation': "python programming"}
         row_id = obj.insert_row(row)
         fr = obj.fetch_single(row_id)
-        for key,value in fr.items():
+        for key, value in fr.items():
             self.assertEqual(value, row[key])
-
 
     def test_fetch_all(self):
         obj = DB()
@@ -56,15 +55,14 @@ class TestDB(unittest.TestCase):
         r1 = obj.insert_row(row)
         r2 = obj.insert_row(row2)
         rows = obj.fetch_all()
-        self.assertEqual(len(rows),2)
-        for i in (r1,r2):
+        self.assertEqual(len(rows), 2)
+        for i in (r1, r2):
             self.assertIn(i, rows)
-
 
     def test_commit(self):
         obj = DB()
-        row = {'name': 'Ram','occupation':'web development'}
-        row_id =obj.insert_row(row)
+        row = {'name': 'Ram', 'occupation': 'web development'}
+        row_id = obj.insert_row(row)
         obj.commit()
         obj2 = DB()
         self.assertEqual(len(obj2.data), 1)

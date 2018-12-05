@@ -2,8 +2,8 @@ from pathlib import Path
 from string import Template
 
 Paths = {
-    "DB_PATH" : "${USER_HOME}/quotes.json",
-    "PICKLE_PATH" : "${USER_HOME}/qpersist",
+    "DB_PATH": "${USER_HOME}/quotes.json",
+    "PICKLE_PATH": "${USER_HOME}/qpersist",
 }
 
 
@@ -20,4 +20,3 @@ def get_config(config_name):
     else:
         path = Template(path)
         return path.substitute({'USER_HOME': user_home})
-

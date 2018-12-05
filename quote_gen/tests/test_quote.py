@@ -2,6 +2,7 @@ from unittest import TestCase
 from quote_gen.app import Quote, RandomQuoteGenerator
 from quote_gen.db import DB
 
+
 class TestQuote(TestCase):
     def test_init(self):
         q = {
@@ -9,8 +10,8 @@ class TestQuote(TestCase):
             'author': 'Ram'
         }
         qo = Quote(**q)
-        self.assertEqual(qo.quote,q['quote'])
-        self.assertEqual(qo.author,q['author'])
+        self.assertEqual(qo.quote, q['quote'])
+        self.assertEqual(qo.author, q['author'])
 
     def test_str(self):
         q = {
@@ -20,7 +21,7 @@ class TestQuote(TestCase):
         qo = Quote(**q)
         actual = str(qo)
         expected = 'Hello\n\t\t-  Ram\n'
-        self.assertEqual(actual,expected,msg=f'{actual}!= {expected}')
+        self.assertEqual(actual, expected, msg=f'{actual}!= {expected}')
 
     def test_record(self):
         q = {
@@ -34,9 +35,8 @@ class TestQuote(TestCase):
         expected.update(q)
         qo = Quote(**q)
         actual = qo.__record__()
-        for key,value in expected.items():
-            self.assertEqual(actual[key],value)
-
+        for key, value in expected.items():
+            self.assertEqual(actual[key], value)
 
 
 class TestFunction(TestCase):
@@ -47,13 +47,13 @@ class TestFunction(TestCase):
         }
         qo = Quote(**q)
         db = DB()
-        db.insert_row( qo.__record__() )
+        db.insert_row(qo.__record__())
         q = {
             'quote': 'Hi',
             'author': 'Hari'
         }
         qo = Quote(**q)
-        db.insert_row( qo.__record__() )
+        db.insert_row(qo.__record__())
         q = {
             'quote': 'Hello',
             'author': 'Ram'
@@ -76,10 +76,10 @@ class TestFunction(TestCase):
 
     def test_generate_rand(self):
         get_rand = RandomQuoteGenerator()
-        elems = [ next(get_rand) for i in range(4) ]
+        elems = [next(get_rand) for i in range(4)]
         elems = [i.quote for i in elems]
         elems = set(elems)
-        self.assertEqual(len(elems),4)
+        self.assertEqual(len(elems), 4)
 
     def test_generate_rand_persist(self):
         get_rand1 = RandomQuoteGenerator()
@@ -98,16 +98,11 @@ class TestFunction(TestCase):
         fourth = next(get_rand4).quote
         get_rand4.close()
 
-
-        elems = {first,second,third,fourth}
-        self.assertEqual(len(elems),4)
-
+        elems = {first, second, third, fourth}
+        self.assertEqual(len(elems), 4)
 
     def tearDown(self):
         import os
         os.remove("quotes.txt")
         if os.path.exists('qpersist'):
             os.remove('qpersist')
-
-
-

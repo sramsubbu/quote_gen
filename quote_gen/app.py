@@ -10,9 +10,9 @@ class QuotesNotAvailable(Exception):
 
 
 class Quote:
-    __fields__ = ['quote','author','source','source_type']
+    __fields__ = ['quote', 'author', 'source', 'source_type']
 
-    def __init__(self,quote, author, source="unknown",
+    def __init__(self, quote, author, source="unknown",
                  source_type=None):
         self.quote = quote
         self.author = author
@@ -20,14 +20,14 @@ class Quote:
         self.source_type = source_type
 
     def __record__(self):
-        return {field:getattr(self,field) for field in self.__fields__}
+        return {field: getattr(self, field) for field in self.__fields__}
 
     def __repr__(self):
         return f'<Quote object>'
 
     def __str__(self):
         quote_string = f'{self.quote}\n\t\t-  {self.author}\n'
-        source = '' if self.source =='unknown' else f'[{self.source}]'
+        source = '' if self.source == 'unknown' else f'[{self.source}]'
         return f'{quote_string}{source}'
 
     def save_to_db(self):
@@ -40,13 +40,13 @@ class RandomQuoteGenerator:
     PATH = get_config('PICKLE_PATH')
 
     def __init__(self):
-        self.obj_path= RandomQuoteGenerator.PATH
+        self.obj_path = RandomQuoteGenerator.PATH
         self.seq = None
         try:
-            with open(self.obj_path,'rb') as fp:
+            with open(self.obj_path, 'rb') as fp:
                 self.seq = pickle.load(fp)
         except FileNotFoundError:
-            #the file does not exist. either the file is not created
+            # the file does not exist. either the file is not created
             # or the file has been moved/deleted. this event needs to be logged.
             pass
         self.db = DB()
@@ -66,11 +66,5 @@ class RandomQuoteGenerator:
         return Quote(**qparams)
 
     def close(self):
-        with open(self.obj_path,'wb') as fp:
+        with open(self.obj_path, 'wb') as fp:
             pickle.dump(self.seq, fp)
-
-
-
-
-
-

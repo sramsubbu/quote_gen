@@ -2,6 +2,7 @@ import json
 from copy import deepcopy
 from pathlib import Path
 from .config import get_config
+
 DB_PATH = "quotes.txt"
 
 
@@ -36,30 +37,29 @@ class DB:
 
     def fetch_single(self, row_id):
         row = self.data[row_id]
-        #we need the row to be deepcopied because any changes to the row,
+        # we need the row to be deepcopied because any changes to the row,
         # need to be updated via update_row() API only. giving access to the
         # actual db object might be violating that principle.
         return deepcopy(row)
 
     def fetch_all(self):
-        return list( self.data.keys() )
+        return list(self.data.keys())
 
     def query(self, query_dict):
-        #the query dict can only contain exact matches. they cannot contain ranges
+        # the query dict can only contain exact matches. they cannot contain ranges
         # or any other selector objects, since this function does not support
         # conditional operators other than equality
-        def cmp(x,y):
-            for key,value in x.items():
+        def cmp(x, y):
+            for key, value in x.items():
                 if value != y[key]:
                     return False
             return True
+
         for item in self.data:
-            if cmp(query_dict,item):
+            if cmp(query_dict, item):
                 return deepcopy(item)
 
         return {}
-
-
 
     def commit(self):
         with open(self.db_path, 'w') as fp:
@@ -69,4 +69,3 @@ class DB:
         self.commit()
         self.db_path = None
         self.data = None
-
