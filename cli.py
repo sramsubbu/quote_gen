@@ -41,6 +41,7 @@ def main():
         get_rand = RandomQuoteGenerator()
         quote = next(get_rand)
         print(quote)
+        get_rand.close()
 
 
 if __name__ == '__main__':

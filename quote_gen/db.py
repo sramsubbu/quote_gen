@@ -1,11 +1,13 @@
 import json
 from copy import deepcopy
 from pathlib import Path
+from .config import get_config
 DB_PATH = "quotes.txt"
 
 
 class DB:
     def __init__(self):
+        DB_PATH = get_config("DB_PATH")
         self.db_path = Path(DB_PATH)
 
         if not self.db_path.exists():

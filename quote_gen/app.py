@@ -1,4 +1,5 @@
 from .db import DB
+from .config import get_config
 
 from random import shuffle
 import pickle
@@ -36,7 +37,7 @@ class Quote:
 
 
 class RandomQuoteGenerator:
-    PATH = 'qpersist'
+    PATH = get_config('PICKLE_PATH')
 
     def __init__(self):
         self.obj_path= RandomQuoteGenerator.PATH
