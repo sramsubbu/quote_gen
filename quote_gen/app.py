@@ -49,6 +49,8 @@ class RandomQuoteGenerator:
             # the file does not exist. either the file is not created
             # or the file has been moved/deleted. this event needs to be logged.
             pass
+        except EOFError:
+            pass
         self.db = DB()
 
     def __iter__(self):
