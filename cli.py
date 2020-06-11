@@ -112,7 +112,8 @@ def main():
         qobj = Quote(**qargs)
         qobj.save_to_db()
     else:
-        get_rand = RandomQuoteGenerator()
+        path = get_config('PICKLE_PATH')
+        get_rand = RandomQuoteGenerator(path)
         quote = next(get_rand)
         print(quote)
         get_rand.close()
