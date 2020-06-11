@@ -1,0 +1,28 @@
+#!/usr/bin/python3
+file_list = ['cli.py', 'quote_gen/app.py', 'quote_gen/db.py', 'quote_gen/config.py']
+
+def get_todo_from_file(file_path):
+    items = []
+    with open(file_path) as fp:
+        lines = [line for line in fp]
+    lines = map(str.strip, lines)
+    required_lines = (line for line in lines if line.startswith('# REVIEW COMMENT'))
+    return required_lines
+
+
+def get_todo_items(file_list):
+    todo_items= []
+    for fpath in file_list:
+        items =  get_todo_from_file(fpath)
+        items = list(items)
+        items =  ((fpath, item) for item in items)
+        todo_items.extend(items)
+    return todo_items
+
+
+if __name__ == '__main__':
+    todo_items = get_todo_items(file_list)
+    for fpath, item in todo_items:
+        print(fpath,item.strip(),sep=' : ')
+
+

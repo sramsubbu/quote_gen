@@ -1,0 +1,10 @@
+#!/bin/bash 
+
+echo "Running static code analysis..."
+python -m pyflakes quote_gen
+python -m pyflakes cli.py
+echo "Done"
+echo "Running unit tests ..."
+python -m pytest 
+
+echo "Done"
