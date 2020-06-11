@@ -36,11 +36,8 @@ class Quote:
 
 
 class RandomQuoteGenerator:
-    # REVIEW COMMENT: config should passed on to the object not the other way around
-    PATH = get_config('PICKLE_PATH') 
-
-    def __init__(self):
-        self.obj_path = RandomQuoteGenerator.PATH
+    def __init__(self, persistant_path):
+        self.obj_path = persistant_path
         self.seq = None
         try:
             with open(self.obj_path, 'rb') as fp:
