@@ -43,11 +43,11 @@ class RandomQuoteGenerator:
             with open(self.obj_path, 'rb') as fp:
                 self.seq = pickle.load(fp)
         except FileNotFoundError:
-            # REVIEW COMMENT: Take care of the below
-            # the file does not exist. either the file is not created
-            # or the file has been moved/deleted. this event needs to be logged.
+            # If the file is not found, the app handles as if it is running first time
+            # so we just ignore the exception
             pass
         except EOFError:
+            # REVIEW COMMENT: ???
             pass
         self.db = DB()
 

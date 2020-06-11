@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='quote_gen',
-    version='0.2.1',
+    version='0.3',
     packages=['quote_gen',
               'quote_gen.tests'],
     py_modules=['cli'],
@@ -13,7 +13,7 @@ setup(
     description='Generate a random quote from the list of available quotes',
     entry_points={
         "console_scripts": [
-            "quote_gen=cli:main_new",
+            "quote_gen=cli:main",
         ],
     },
 

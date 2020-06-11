@@ -6,7 +6,8 @@ from pathlib import Path
 import argparse
 import sys
 
-VERSION = "0.2"
+# REVIEW COMMENT: Handle version strings across the various files in the application
+VERSION = "0.3"
 
 
 class App:
@@ -38,10 +39,6 @@ class App:
         print(quote)
         rand_gen.close()
 
-    
-        
-
-
 
 # REVIEW COMMENT: Add logging to the code for debugging if needed 
 # REVIEW COMMENT: Make the config to be read once and use that in various places
@@ -51,10 +48,10 @@ class App:
 def parse_cli_args():
     # REVIEW COMMENT: add an option to export the quotes to a file
     # REVIEW COMMENT: add an option to display the current version of the app
-    # REVIEW COMMENT: add unix style single options
-    parser = argparse.ArgumentParser(description="Display a random quote from a list of available quotes")
+    parser = argparse.ArgumentParser(description="Display a random quote from a list of available quotes", prog='quote_gen')
     parser.add_argument("-a", "--add-quote", action="store_true")
     parser.add_argument("-c", "--create-database", action="store_true")
+    parser.add_argument("-v", "--version", action='version',version=f'%(prog)s {VERSION}')
     return parser.parse_args()
 
 
@@ -72,7 +69,7 @@ def get_multiline(input_msg=''):
     return '\n'.join(user_input)
 
 
-def main_new():
+def main():
     def create_database():
         db_path = get_config('DB_PATH')
         with open(db_path, 'w') as fp:
@@ -90,34 +87,6 @@ def main_new():
         return
     app.print_random_quote()
         
-    
-
-
-def main():
-    args = parse_cli_args()
-    if args.create_database:
-        db_path = Path(get_config('DB_PATH'))
-        with open(db_path, 'w') as fp:
-            print('{}', file=fp)
-        print(db_path)
-    if args.add_quote:
-        qargs = {}
-        print("Enter the quote:")
-        qargs['quote'] = get_multiline()
-        qargs['author'] = input("Author:")
-        qargs['source'] = input("Source(''): ")
-
-        qargs = {key: value.strip() for key, value in qargs.items() if value.strip()}
-
-        qobj = Quote(**qargs)
-        qobj.save_to_db()
-    else:
-        path = get_config('PICKLE_PATH')
-        get_rand = RandomQuoteGenerator(path)
-        quote = next(get_rand)
-        print(quote)
-        get_rand.close()
-
 
 if __name__ == '__main__':
-    main_new()
+    main()
