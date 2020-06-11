@@ -13,7 +13,7 @@ setup(
     description='Generate a random quote from the list of available quotes',
     entry_points={
         "console_scripts": [
-            "quote_gen=cli:main",
+            "quote_gen=cli:main_new",
         ],
     },
 
