@@ -33,7 +33,6 @@ class App:
     def print_random_quote(self):
         pickle_file_path = self.get_config('PICKLE_PATH')
         rand_gen = RandomQuoteGenerator(pickle_file_path)
-        
         # REVIEW COMMENT: use context manager
         quote = next(rand_gen)
         print(quote)
