@@ -49,7 +49,7 @@ class RandomQuoteGenerator:
         except EOFError:
             # REVIEW COMMENT: ???
             pass
-        self.db = DB()
+        self.db = DB(db_path)
 
     def __iter__(self):
         return self
