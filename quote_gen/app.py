@@ -36,7 +36,7 @@ class Quote:
 
 
 class RandomQuoteGenerator:
-    def __init__(self, persistant_path):
+    def __init__(self, persistant_path, db_path):
         self.obj_path = persistant_path
         self.seq = None
         try:
