@@ -7,7 +7,9 @@ DB_PATH = "quotes.txt"
 
 
 class DB:
+    # REVIEW COMMENT: Rethink the design of the db file
     def __init__(self):
+        # REVIEW COMMENT: pass the config object to the class 
         DB_PATH = get_config("DB_PATH")
         self.db_path = Path(DB_PATH)
 

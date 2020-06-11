@@ -30,14 +30,14 @@ class Quote:
         source = '' if self.source == 'unknown' else f'[{self.source}]'
         return f'{quote_string}{source}'
 
-    def save_to_db(self):
-        db_obj = DB()
+    def save_to_db(self, db_obj):
         db_obj.insert_row(self.__record__())
         db_obj.commit()
 
 
 class RandomQuoteGenerator:
-    PATH = get_config('PICKLE_PATH')
+    # REVIEW COMMENT: config should passed on to the object not the other way around
+    PATH = get_config('PICKLE_PATH') 
 
     def __init__(self):
         self.obj_path = RandomQuoteGenerator.PATH
@@ -46,6 +46,7 @@ class RandomQuoteGenerator:
             with open(self.obj_path, 'rb') as fp:
                 self.seq = pickle.load(fp)
         except FileNotFoundError:
+            # REVIEW COMMENT: Take care of the below
             # the file does not exist. either the file is not created
             # or the file has been moved/deleted. this event needs to be logged.
             pass
