@@ -7,11 +7,9 @@ DB_PATH = "quotes.txt"
 
 
 class DB:
-    # REVIEW COMMENT: Rethink the design of the db file
-    def __init__(self):
+    def __init__(self, db_path):
         # REVIEW COMMENT: pass the config object to the class 
-        DB_PATH = get_config("DB_PATH")
-        self.db_path = Path(DB_PATH)
+        self.db_path = Path(db_path)
 
         if not self.db_path.exists():
             self.data = {}

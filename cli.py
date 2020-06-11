@@ -1,11 +1,15 @@
 from quote_gen.app import RandomQuoteGenerator, Quote
 from quote_gen.config import get_config
+from quote_gen.db import DB
 
 from pathlib import Path
 
 import argparse
 import sys
 
+# REVIEW COMMENT: Add logging to the code for debugging if needed 
+# REVIEW COMMENT: Make the config to be read once and use that in various places
+# REVIEW COMMENT: Handle signals, stdout, stderr, exit codes in the code if not provide justification for not handling
 # REVIEW COMMENT: Handle version strings across the various files in the application
 VERSION = "0.3"
 
@@ -29,7 +33,8 @@ class App:
 
         qobj = Quote(**qargs)
         db_path = self.get_config('DB_PATH')
-        qobj.save_to_db(db_path)
+        db_obj = DB(db_path)
+        qobj.save_to_db(db_obj)
 
     def print_random_quote(self):
         pickle_file_path = self.get_config('PICKLE_PATH')
@@ -40,14 +45,11 @@ class App:
         rand_gen.close()
 
 
-# REVIEW COMMENT: Add logging to the code for debugging if needed 
-# REVIEW COMMENT: Make the config to be read once and use that in various places
-# REVIEW COMMENT: Handle signals, stdout, stderr, exit codes in the code if not provide justification for not handling
+
 
 
 def parse_cli_args():
     # REVIEW COMMENT: add an option to export the quotes to a file
-    # REVIEW COMMENT: add an option to display the current version of the app
     parser = argparse.ArgumentParser(description="Display a random quote from a list of available quotes", prog='quote_gen')
     parser.add_argument("-a", "--add-quote", action="store_true")
     parser.add_argument("-c", "--create-database", action="store_true")
