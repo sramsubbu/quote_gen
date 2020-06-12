@@ -8,7 +8,6 @@ import argparse
 import sys
 
 # REVIEW COMMENT: Add logging to the code for debugging if needed 
-# REVIEW COMMENT: Make the config to be read once and use that in various places
 # REVIEW COMMENT: Handle signals, stdout, stderr, exit codes in the code if not provide justification for not handling
 # REVIEW COMMENT: Handle version strings across the various files in the application
 VERSION = "0.3"

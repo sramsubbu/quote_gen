@@ -2,7 +2,6 @@ from pathlib import Path
 from string import Template
 
 Paths = {
-    # REVIEW COMMENT: change the config path to a specific directory for the app. 
     "DB_PATH": "{USER_HOME}/quotes.json",
     "PICKLE_PATH": "{USER_HOME}/qpersist",
 }
