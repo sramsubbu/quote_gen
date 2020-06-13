@@ -1,6 +1,7 @@
 from quote_gen.app import RandomQuoteGenerator, Quote
 from quote_gen.config import get_config
 from quote_gen.db import DB
+import quote_gen
 
 from pathlib import Path
 
@@ -10,7 +11,7 @@ import sys
 # REVIEW COMMENT: Add logging to the code for debugging if needed 
 # REVIEW COMMENT: Handle signals, stdout, stderr, exit codes in the code if not provide justification for not handling
 # REVIEW COMMENT: Handle version strings across the various files in the application
-VERSION = "0.3"
+VERSION  = quote_gen.__version__
 
 
 class App:
