@@ -8,6 +8,14 @@ import pickle
 class QuotesNotAvailable(Exception):
     pass
 
+def export_all_quotes(db_obj):
+    quote_ids = db_obj.fetch_all()
+    all_quotes = []
+    for quote_id in quote_ids:
+        quote = db_obj.fetch_single(quote_id)
+        all_quotes.append(quote)
+    return all_quotes
+
 
 class Quote:
     __fields__ = ['quote', 'author', 'source', 'source_type']

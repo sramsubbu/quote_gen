@@ -1,7 +1,8 @@
-from quote_gen.app import RandomQuoteGenerator, Quote
+from quote_gen.app import RandomQuoteGenerator, Quote, export_all_quotes
 from quote_gen.config import get_config
 from quote_gen.db import DB
 import quote_gen
+import json
 
 from pathlib import Path
 
@@ -10,7 +11,6 @@ import sys
 
 # REVIEW COMMENT: Add logging to the code for debugging if needed 
 # REVIEW COMMENT: Handle signals, stdout, stderr, exit codes in the code if not provide justification for not handling
-# REVIEW COMMENT: Handle version strings across the various files in the application
 VERSION  = quote_gen.__version__
 
 
@@ -36,6 +36,23 @@ class App:
         db_obj = DB(db_path)
         qobj.save_to_db(db_obj)
 
+    def export(self, output_file):
+        db_path = self.get_config("DB_PATH")
+        db_obj = DB(db_path)
+        quotes = export_all_quotes(db_obj)
+        json.dump(quotes, output_file, indent=4)
+
+    def import_from_file(self, input_file):
+        quotes = json.load(input_file)
+        db_path = self.get_config('DB_PATH')
+        db_obj = DB(db_path)
+        for quote in quotes:
+            db_obj.insert_row(quote)
+        db_obj.commit()
+        db_obj.close()
+        print("Imported from the given file")
+        
+
     def print_random_quote(self):
         pickle_file_path = self.get_config('PICKLE_PATH')
         db_path = self.get_config('DB_PATH')
@@ -55,6 +72,9 @@ def parse_cli_args():
     parser.add_argument("-a", "--add-quote", action="store_true")
     parser.add_argument("-c", "--create-database", action="store_true")
     parser.add_argument("-v", "--version", action='version',version=f'%(prog)s {VERSION}')
+    data_exporting = parser.add_mutually_exclusive_group()
+    data_exporting.add_argument("-e", "--export", type=argparse.FileType('w'))
+    data_exporting.add_argument("-i", "--import-file", type=argparse.FileType('r'))
     return parser.parse_args()
 
 
@@ -85,6 +105,13 @@ def main():
         # create the db file and quit
         create_database()
         return
+    if args.export:
+        app.export(args.export)
+        return
+    if args.import_file:
+        app.import_from_file(args.import_file)
+        return
+        
     if args.add_quote:
         app.add_quote()
         return
