@@ -1,0 +1,8 @@
+# [0.3.2]
+### Added
+Added options of importing and exporting the from a json file
+
+### Changed
+Refactored the components to get the required values as parameters rather than reading the config themselves
+
+
