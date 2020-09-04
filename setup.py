@@ -1,4 +1,7 @@
 from setuptools import setup
+from quote_gen import config 
+
+
 
 def get_version(file_path):
     with open(file_path) as fp:
@@ -8,6 +11,14 @@ def get_version(file_path):
                 version_string = line.split('=')[1]
                 version = eval(version_string)
                 return version
+
+def create_app_folder():
+    app_folder = config._DEFAULT_QGEN_PATH
+    print(f"checking if the app folder exists in {app_folder}")
+    if app_folder.exists():
+        return
+    print(f'Creating app folder ...')
+    app_folder.mkdir()
 
 setup(
     name='quote_gen',
@@ -27,3 +38,5 @@ setup(
     },
 
 )
+
+create_app_folder()
