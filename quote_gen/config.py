@@ -6,8 +6,8 @@ Paths = {
     "PICKLE_PATH": "{USER_HOME}/qpersist",
 }
 
-# _DEFAULT_QGEN_PATH = Path.home() / ".quote_gen"
-_DEFAULT_QGEN_PATH = "./.quotegen" #DEV ONLY
+_DEFAULT_QGEN_PATH = Path.home() / ".quote_gen"
+# _DEFAULT_QGEN_PATH = Path("./.quotegen") #DEV ONLY
 
 class InvalidConfigName(Exception):
     pass
