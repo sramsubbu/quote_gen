@@ -42,11 +42,13 @@ quote_gen --add-quote
 
 and enter the entries that are prompted.
 
+For a full list of options run the quote_gen with --help option. 
+
 
 Support
 --------
 
-For any bugs, queries or issues, please contact me at sramsubu@gmail.com.
+For any bugs, queries or issues, please raise an issue in github or contact me at sramsubu@gmail.com.
 
 
 Licence
