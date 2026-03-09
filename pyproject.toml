@@ -13,5 +13,5 @@ readme = "README.md"
 dependencies = []
 
 [project.scripts]
-quote_gen = "cli:main"
+quote_gen = "quote_gen:main"
 
