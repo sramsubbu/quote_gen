@@ -1,0 +1,17 @@
+[project]
+name = "quote_gen"
+version = "1.0.0"
+description = "Generate a random quote from the list of available quotes"
+authors = [
+  { name = "Ramasubramanian S", email = "sramsubu@gmail.com" }
+]
+license = { text = "GPL" }
+requires-python = ">=3.9"
+
+readme = "README.md"
+
+dependencies = []
+
+[project.scripts]
+quote_gen = "cli:main"
+
