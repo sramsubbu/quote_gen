@@ -64,7 +64,15 @@ def init():
         print(f"Created directory: {QUOTE_GEN_PATH}")
     if not QUOTES_JSON.exists():
         print("quotes.json file does not exist in quote_gen path. Creating with default")
-        quotes = get_default_quotes()
+        from pkgutil import get_data
+        try:
+            data = get_data("quote_gen", "default-quotes.json")
+            if data:
+                quotes = json.loads(data.decode("utf-8"))
+            else:
+                quotes = get_default_quotes()
+        except Exception:
+            quotes = get_default_quotes()
         with open(QUOTES_JSON, 'w') as f:
             json.dump(quotes, f, indent=4)
 

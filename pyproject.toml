@@ -15,3 +15,8 @@ dependencies = []
 [project.scripts]
 quote_gen = "quote_gen:main"
 
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"quote_gen" = ["default-quotes.json"]
