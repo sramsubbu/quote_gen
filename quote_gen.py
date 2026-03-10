@@ -1,12 +1,14 @@
 from pathlib import Path
 from random import shuffle 
+import sys
 import json
 import pickle 
 
 
 QUOTE_GEN_PATH = Path.home() / ".quote_gen" 
 QUOTES_JSON = QUOTE_GEN_PATH / "quotes.json" 
-QUOTES_PERSIST = QUOTE_GEN_PATH / ".qpersist" 
+QUOTES_PERSIST = QUOTE_GEN_PATH / ".qpersist"
+
 
 
 def create_and_get_random_list():
@@ -32,8 +34,8 @@ def save_random_list(random_list):
 
 
 def get_quotes():
-    quote = {"quote": "Power resides where men believe it resides. It's a trick, a shadow on the wall", "author": "George RR Martin"}
-    return [quote]
+    with open(QUOTES_JSON) as f:
+        return json.load(f)
 
 
 def get_default_quotes():
@@ -67,6 +69,12 @@ def init():
             json.dump(quotes, f, indent=4)
 
 
+
+def save_update_random_list(random_list):
+    with open(QUOTES_PERSIST, "wb") as f:
+        pickle.dump(random_list, f)
+
+
 def main():
     init()
     random_list = None 
@@ -81,6 +89,7 @@ def main():
     quotes = get_quotes()
     quote = quotes[quote_index]
     print_quote(quote)
+    save_update_random_list(random_list)
     
 
 if __name__ == '__main__':
