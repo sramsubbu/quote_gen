@@ -6,16 +6,17 @@ Generate a random quote based on the list of available quotes
 
 Prerequesites
 ----------------
-quotegen runs in python3.6 and above. It does not require any further depedencies. 
+quotegen runs in python3.9 and above. It does not require any further depedencies. 
 
 
 Installation
 --------------
 
-Installation is done by running the setup.py file with the install option
+Installation is done using the uv toolchain. Build and install with:
 
-``` bash 
-python setup.py install
+```bash
+uv build
+uv tool install
 ```
 
 Check if the code is installed correctly by running

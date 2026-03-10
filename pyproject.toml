@@ -1,6 +1,6 @@
 [project]
 name = "quote_gen"
-version = "1.0.0"
+version = "1.1.0"
 description = "Generate a random quote from the list of available quotes"
 authors = [
   { name = "Ramasubramanian S", email = "sramsubu@gmail.com" }

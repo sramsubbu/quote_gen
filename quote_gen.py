@@ -4,11 +4,36 @@ import sys
 import json
 import pickle 
 
+   
+
 
 QUOTE_GEN_PATH = Path.home() / ".quote_gen" 
 QUOTES_JSON = QUOTE_GEN_PATH / "quotes.json" 
 QUOTES_PERSIST = QUOTE_GEN_PATH / ".qpersist"
 
+
+def get_version():
+    version = "Unknown"
+    try:
+        from importlib.metadata import version, PackageNotFoundError 
+    except Exception:
+        return None 
+
+    try:
+        return version("quote_gen")
+    except PackageNotFoundError:
+        return None 
+
+
+def print_version_and_quit():
+    version = get_version()
+    if version is None:
+        print("Cannot determine the version")
+        raise SystemExit(1)
+    
+    out_text = f"quote_gen {version}"
+    print(out_text)
+    raise SystemExit(0)
 
 
 def create_and_get_random_list():
@@ -84,6 +109,8 @@ def save_update_random_list(random_list):
 
 
 def main():
+    if "--version" in sys.argv[1:]:
+        print_version_and_quit()
     init()
     random_list = None 
     if QUOTES_PERSIST.exists():
