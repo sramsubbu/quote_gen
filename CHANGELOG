@@ -1,3 +1,11 @@
+# [1.0.0]
+
+## Changed 
+- Migrated the code to uv. 
+- Rewrote the entire code to be simpler. 
+Quotes will be stored in quotes.json. Random list will be stored in a separate file. 
+Edit/Add quotes directly by editing quotes.json file. No extra config or params required 
+
 # [0.3.2]
 ### Added
 Added options of importing and exporting the from a json file
