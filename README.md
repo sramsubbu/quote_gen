@@ -30,20 +30,25 @@ If it prints the version, then the quotegen is installed successfully.
 Usage
 -------
 
-Running quotegen in simple
+Run the command:
 
-``` bash 
+```bash
 quote_gen
 ```
 
-quotegen also allows for custom quotes to be added by the user. To add a quote run
-``` bash
-quote_gen --add-quote
+Adding a quote
+---------------
+To add a quote, open the quotes.json file located at ~/.quote_gen/quotes.json (or in the project path) and add a JSON object with "quote" and "author" fields. Example entry:
+
+```json
+{
+  "quote": "Your quote here",
+  "author": "Author Name"
+}
 ```
 
-and enter the entries that are prompted.
+Save the file; new quotes will be used the next time you run quote_gen.
 
-For a full list of options run the quote_gen with --help option. 
 
 
 Support
